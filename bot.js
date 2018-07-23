@@ -27,7 +27,7 @@ client.on('ready',  () => {
  
 
 client.on('message', message => {
-    if (message.content === "+bot") {
+    if (message.content === "=bot") {
     if(!message.channel.guild) return;
     const millis = new Date().getTime() - message.guild.createdAt.getTime();
     const now = new Date();
@@ -52,22 +52,7 @@ client.on('message', message => {
 
     
 
-client.on('message' , message => {
 
-    if (message.author.bot) return;
-      if(message.content.startsWith( "+invite")) {
-   
-  const embed = new Discord.RichEmbed()
-    .setFooter(`©  Dragon™ `)
-       .setColor(0xd3d0c4)
-  .setAuthor(message.author.username, message.author.avatarURL)
-  .setTitle(':arrow_right: Click Here Invite Link اضغط هنا')
-  .setURL('https://discordapp.com/oauth2/authorize?client_id=459725014237970492&scope=bot&permissions=2146958583')
-  
-  message.channel.sendEmbed(embed);
-  
-  }
-  });
 
 
 
@@ -80,7 +65,7 @@ if(!message.channel.guild) return;
 let args = message.content.split(' ').slice(1).join(' ');
 
        let defineduser = '';
-       if (!args[1]) { // If they didn't define anyone, set it to their own.
+       if (!args[1]) { 
            defineduser = message.author;
        } else { // Run this if they did define someone...
            let firstMentioned = message.mentions.users.first();
@@ -232,8 +217,7 @@ ctx.fill();
          var time2 = `${dateFormat(message.member.joinedAt)}`;
          
      }
-          
-                                               //wl
+
                        ctx.font = 'Bold 13px Arial ';
                        ctx.fontSize = '13px';
                        ctx.fillStyle = "#ffffff";
@@ -243,7 +227,6 @@ ctx.fill();
                        
     
           
-                                               //wl
                        ctx.font = 'Bold 13px Arial ';
                        ctx.fontSize = '13px';
                        ctx.fillStyle = "#ffffff";
@@ -792,7 +775,7 @@ client.on('message', message => {
 
   var roleCreated = role.createdAt.toString().split(' ');
   const embed = new Discord.RichEmbed()
-  .setTitle("Dragon")
+  .setTitle("..")
   .setAuthor( '', '' )
   .setColor(0xFF8DFD)
   .setDescription(``)
@@ -972,7 +955,7 @@ client.on('message', async message =>{
       if(mention.highestRole.position >= message.guild.member(message.author).highestRole.positon) return message.reply('**لا يمكنك اعطاء لميوت شخص رتبته اعلى منك**').then(m => m.delete(5000));
       if(tomute.hasPermission("MANAGE_MESSAGES"))return;
       let muterole = message.guild.roles.find(`name`, "Muted");
-      //start of create role
+
       if(!muterole){
         try{
           muterole = await message.guild.createRole({
@@ -990,7 +973,7 @@ client.on('message', async message =>{
           console.log(e.stack);
         }
       }
-      //end of create role
+
       let mutetime = args[1];
       if(!mutetime) return message.reply("**يرجى تحديد وقت الميوت**:x:");
     
@@ -1003,7 +986,7 @@ client.on('message', async message =>{
       }, ms(mutetime));
     
     
-    //end of module
+
     }
   
   });
@@ -2190,48 +2173,34 @@ ${args}
     }
   );
     
-     client.on('message', message => {
-                  if(!message.channel.guild) return;
-        if(message.content.startsWith(prefix + 'bc')) {
-        if(!message.channel.guild) return message.channel.send('**هذا الأمر فقط للسيرفرات**').then(m => m.delete(5000));
-      if(!message.member.hasPermission('ADMINISTRATOR')) return      message.channel.send('**للأسف لا تمتلك صلاحية** `ADMINISTRATOR`' );
-        let args = message.content.split(" ").join(" ").slice(2 + prefix.length);
-        let copy = "Dragon";
-        let request = `Requested By ${message.author.username}`;
-        if (!args) return message.reply('**يجب عليك كتابة كلمة او جملة لإرسال البرودكاست**');message.channel.send(`**هل أنت متأكد من إرسالك البرودكاست؟ \nمحتوى البرودكاست:** \` ${args}\``).then(msg => {
-        msg.react('✅')
-        .then(() => msg.react('❌'))
-        .then(() =>msg.react('✅'))
-         
-        let reaction1Filter = (reaction, user) => reaction.emoji.name === '✅' && user.id === message.author.id;
-        let reaction2Filter = (reaction, user) => reaction.emoji.name === '❌' && user.id === message.author.id;
-         
-        let reaction1 = msg.createReactionCollector(reaction1Filter, { time: 12000 });
-        let reaction2 = msg.createReactionCollector(reaction2Filter, { time: 12000 });
-         
-        reaction1.on("collect", r => {
-        message.channel.send(`☑ | Done ... The Broadcast Message Has Been Sent For ${message.guild.members.size} Members`).then(m => m.delete(5000));
+ client.on('message', message => {
+    if (message.author.id === client.user.id) return;
+    if (message.guild) {
+   let embed = new Discord.RichEmbed()
+    let args = message.content.split(' ').slice(1).join(' ');
+if(message.content.split(' ')[0] == prefix + 'bc') {
+    if (!args[1]) {
+message.channel.send("**-bc <message>**");
+return;
+}
         message.guild.members.forEach(m => {
-        var bc = new
-           Discord.RichEmbed()
-           .setColor('RANDOM')
-           .setTitle('Broadcast')
-           .addField('Server', message.guild.name)
-           .addField('Sender', message.author.username)
-           .addField('Message', args)
-           .setThumbnail(message.author.avatarURL)
-           .setFooter(copy, client.user.avatarURL);
-        m.send({ embed: bc })
-        msg.delete();
-        })
-        })
-        reaction2.on("collect", r => {
-        message.channel.send(`**Broadcast Canceled.**`).then(m => m.delete(5000));
-        msg.delete();
-        })
-        })
-        }
+   if (!message.member.hasPermission("ADMINISTRATOR")) return message.channel.send('**لايوجد لديك صلاحية لارسال البردكاست**');
+   if(!message.member.hasPermission('ADMINISTRATOR')) return;
+            var bc = new Discord.RichEmbed()
+            .addField("●[من سيرفر]", message.guild.name, true)
+            .addField("●[الى]", `${m}` , true)
+            .addField('●[الرسالة]', args)
+            .setColor('#ff0000')
+            // m.send(`[${m}]`);
+            m.send(`${m}`,{embed: bc});
         });
+    message.channel.send(`\`${message.guild.members.filter(m => m.presence.status !== 'all').size}\` : عدد الاعضاء المستلمين`); 
+    message.delete(); 
+    }
+    } else {
+        return;
+    }
+});
      client.on('message' , message => {
           if(message.author.bot) return;
          

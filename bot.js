@@ -4,8 +4,7 @@ const client = new Discord.Client();
 const dateFormat = require('dateformat');
 const convert = require("hh-mm-ss")
 const fs = require('fs');
-const adminprefix = "=";
-const devs = ['410421617869455370', '342678923177492481'];
+
 const moment = require('moment');
 const ytdl = require('ytdl-core');
 const request = require('request');
@@ -3139,6 +3138,39 @@ if (message.content.startsWith('+صراحه')) {
 }
 });  
 
-
+const developers = ["342678923177492481","410421617869455370",""]
+const adminprefix = "=";
+client.on('message', message => {
+    var argresult = message.content.split(` `).slice(1).join(' ');
+      if (!developers.includes(message.author.id)) return;
+      
+  if (message.content.startsWith(adminprefix + 'ply')) {
+    client.user.setGame(argresult);
+      message.channel.send(`**✅   ${argresult}**`)
+  } else 
+     if (message.content === (adminprefix + "leave")) {
+    message.guild.leave();        
+  } else  
+  if (message.content.startsWith(adminprefix + 'wt')) {
+  client.user.setActivity(argresult, {type:'WATCHING'});
+      message.channel.send(`**✅   ${argresult}**`)
+  } else 
+  if (message.content.startsWith(adminprefix + 'ls')) {
+  client.user.setActivity(argresult , {type:'LISTENING'});
+      message.channel.send(`**✅   ${argresult}**`)
+  } else 
+  if (message.content.startsWith(adminprefix + 'st')) {
+    client.user.setGame(argresult, "https://www.twitch.tv/idk");
+      message.channel.send(`**✅**`)
+  }
+  if (message.content.startsWith(adminprefix + 'setname')) {
+  client.user.setUsername(argresult).then
+      message.channel.send(`Changing The Name To ..**${argresult}** `)
+} else
+if (message.content.startsWith(adminprefix + 'setavatar')) {
+  client.user.setAvatar(argresult);
+    message.channel.send(`Changing The Avatar To :**${argresult}** `);
+}
+});
 
 client.login(process.env.BOT_TOKEN);

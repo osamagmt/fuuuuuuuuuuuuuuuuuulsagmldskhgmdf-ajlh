@@ -78,9 +78,9 @@ if(!message.guild.member(message.author).hasPermission("MANAGE_ROLES")) return;
 if(!mention) return message.reply("منشن شخص");
 
 acRoom.send(`**${mention} تم رفضك للاسف**`)
+
 }
 
-})
 });
 
 
@@ -127,6 +127,7 @@ gg.send({embed : new Discord.RichEmbed()
 })
  }
 })
+
     
 
 
